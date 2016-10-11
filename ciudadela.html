@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Estilos de la documentación no son necesarios -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Esto es necesario para que no se vean las cosas hasta que este todo cargado -->
+  <style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+    }
+  </style>
+
+  <!-- CSS de angultar-material -->
+
+  <title>Ciudadela</title>
+</head>
+
+<body ng-app="ngWapi" ng-cloak="wapi">
+  <section>
+    <h2>La papa está en el código fuente ;)</h2>
+  </section>
+
+  <section>
+    <h2>Suscripción a newsletter</h2>
+    <h3>
+      Atributos utilizados: w-form, ng-submit, ng-model, ng-show
+    </h3>
+    <form w-form="subscribe" ng-submit="submit()">
+      <fieldset>
+        <label>Email</label>
+        <input ng-model="data.email">
+      </fieldset>
+
+      <div ng-show="sending">
+        Enviando
+      </div>
+
+      <fieldset>
+        <button class="submit">Enviar</button>
+      </fieldset>
+
+      <div ng-show="submitted"> Great </div>
+      <div ng-show="fail"> :( </div>
+    </form>
+  </section>
+
+  <section>
+    <h2>Contacto para revendedores</h2>
+    <h3>
+      Atributos utilizados: w-form, ng-submit, ng-model, ng-show
+    </h3>
+    <form w-form="contact-reseller" ng-submit="submit()">
+      <fieldset>
+        <label>Nombre</label>
+        <input ng-model="data.firstname">
+      </fieldset>
+
+      <fieldset>
+        <label>Apellido</label>
+        <input ng-model="data.lastname">
+      </fieldset>
+
+      <fieldset>
+        <label>Código postal</label>
+        <input ng-model="data.postalcode">
+      </fieldset>
+
+      <fieldset>
+        <label>Email</label>
+        <input ng-model="data.email">
+      </fieldset>
+
+      <fieldset>
+        <label>Telefono</label>
+        <input ng-model="data.phone">
+      </fieldset>
+
+      <div ng-show="sending">
+        Enviando
+      </div>
+
+      <fieldset>
+        <button class="submit">Enviar</button>
+      </fieldset>
+
+      <div ng-show="submitted"> Great </div>
+      <div ng-show="fail"> :( </div>
+    </form>
+  </section>
+
+
+  <!--  -->
+  <!--  -->
+  <!-- Scripts -->
+  <!-- Todos estos son necesarios para que funcione wapi-->
+  <!--  -->
+
+
+  <!-- Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+
+  <!-- WAPI. Usar uno de los dos. -->
+
+  <!-- WAPI Para local -->
+  <script src="http://localhost:9888/ciudadela/browser/ng-wapi.js" ></script>
+  <!-- WAPI para prod (webflow) -->
+  <script src="https://api.waaws.space/ciudadela/browser/ng-wapi.js"></script>
+
+
+</body>
+</html>

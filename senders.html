@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Estilos de la documentación -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Esto es necesario para que no se vean las cosas hasta que este todo cargado -->
+  <style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+    }
+  </style>
+
+  <!-- CSS de angultar-material -->
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+  <title>Senders</title>
+</head>
+
+<!-- Con ng-app engancha el body con la app que esta a su vez enganchada con wapi y con angular-material -->
+<!-- Con ng-cloak espera a que cargue todo para que se muestre el body -->
+<body ng-app="sendersApp" ng-cloak="wapi">
+  <section>
+    <h2>La papa está en el código fuente ;)</h2>
+  </section>
+
+  <section>
+    <h2>Obtener un envio: nqrp-jphz-38744</h2>
+    <!--
+      Para tomar el id del envio de la URL usar:
+
+      Si la URL fuera senders.com/envio?id=1234
+
+      <div  w-get=" '/shipments/' + wLocation.query.id ">
+     -->
+    <div w-get="'/shipments/'+ (wLocation.query.id || 'nqrp-jphz-38744')" >
+
+      <div>
+        <label>Shipment ID</label>
+        <input type="text" ng-model="shipmentId">
+      </div>
+
+      <div>
+        <label>shipper_fullname</label>
+        <span class="data">{{data.shipper_fullname}}</span>
+      </div>
+
+      <div>
+        <label>shipper_email</label>
+        <span class="data">{{data.shipper_email}}</span>
+      </div>
+
+      <div>
+        <label>shipper_phone</label>
+        <span class="data">{{data.shipper_phone}}</span>
+      </div>
+
+      <div>
+        <label>pickup_address_line_1</label>
+        <span class="data">{{data.pickup_address_line_1}}</span>
+      </div>
+
+      <div>
+        <label>pickup_address_between_streets</label>
+        <span class="data">{{data.pickup_address_between_streets}}</span>
+      </div>
+
+      <div>
+        <label>pickup_address_postal_code</label>
+        <span class="data">{{data.pickup_address_postal_code}}</span>
+      </div>
+
+      <div>
+        <label>pickup_address_neighborhood</label>
+        <span class="data">{{data.pickup_address_neighborhood}}</span>
+      </div>
+
+      <div>
+        <label>pickup_time_range</label>
+        <span class="data">{{data.pickup_time_range}}</span>
+      </div>
+
+      <div>
+        <label>receiver_email</label>
+        <span class="data">{{data.receiver_email}}</span>
+      </div>
+
+      <div>
+        <label>receiver_fullname</label>
+        <span class="data">{{data.receiver_fullname}}</span>
+      </div>
+
+      <div>
+        <label>destination_address_line_1</label>
+        <span class="data">{{data.destination_address_line_1}}</span>
+      </div>
+
+      <div>
+        <label>destination_address_between_streets</label>
+        <span class="data">{{data.destination_address_between_streets}}</span>
+      </div>
+
+      <div>
+        <label>destination_address_postal_code</label>
+        <span class="data">{{data.destination_address_postal_code}}</span>
+      </div>
+
+      <div>
+        <label>destination_address_neighborhood</label>
+        <span class="data">{{data.destination_address_neighborhood}}</span>
+      </div>
+
+      <div>
+        <label>destination_time_range</label>
+        <span class="data">{{data.destination_time_range}}</span>
+      </div>
+
+      <div>
+        <label>payment_status</label>
+        <span class="data">{{data.payment_status}}</span>
+      </div>
+
+      <div>
+        <label>mercadopago_preference</label>
+        <span class="data">{{data.mercadopago_preference}}</span>
+      </div>
+
+      <div>
+        <label>mercadopago_payment</label>
+        <span class="data">{{data.mercadopago_payment}}</span>
+      </div>
+
+      <div>
+        <h4>Complete JSON response:</h4>
+        <span class="data">{{data}}</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Nuevo Envío</h2>
+    <!--
+      El atributo on-response-redirect hace que redireccione a mercado pago
+      cuando se registre el pedido de envío.
+     -->
+    <form w-form="shipments"
+          ng-init="step=1"
+          on-response-redirect="response.mercadopago_preference.init_point"
+          redirect-delay="3000">
+
+      <div ng-show="step==1">
+        <md-input-container class="md-block" flex-gt-sm>
+          <md-icon md-svg-src="http://uploads.webflow.com/57dab242d7a0ee581966590f/57e42cda8fcfc4143a4c3bc1_icono-nombre.svg"></md-icon>
+          <input ng-model="data.shipper_fullname" placeholder="Nombre">
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+      <md-icon md-svg-src="https://daks2k3a4ib2z.cloudfront.net/57dab242d7a0ee581966590f/57e42cd98fcfc4143a4c3bc0_icono-email.svg"></md-icon>
+      	<input ng-model="data.shipper_email"  placeholder="Email">
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+      <md-icon md-svg-src="https://daks2k3a4ib2z.cloudfront.net/57dab242d7a0ee581966590f/57e42cdbab1957093a8272a5_icono-telefono.svg"></md-icon>
+      	<input ng-model="data.shipper_phone"  placeholder="Teléfono">
+      </md-input-container>
+
+        <button type="button" name="button" ng-click="step=2">Paso 2</button>
+      </div>
+
+      <div ng-show="step==2 && !sending">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>pickup_address_line_1</label>
+          <input ng-model="data.pickup_address_line_1">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>pickup_address_between_streets</label>
+          <input ng-model="data.pickup_address_between_streets">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>pickup_address_postal_code</label>
+          <input ng-model="data.pickup_address_postal_code">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>pickup_address_neighborhood</label>
+          <input ng-model="data.pickup_address_neighborhood">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>pickup_time_range</label>
+          <input ng-model="data.pickup_time_range">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>receiver_email</label>
+          <input ng-model="data.receiver_email">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>receiver_fullname</label>
+          <input ng-model="data.receiver_fullname">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>destination_address_line_1</label>
+          <input ng-model="data.destination_address_line_1">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>destination_address_between_streets</label>
+          <input ng-model="data.destination_address_between_streets">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>destination_address_postal_code</label>
+          <input ng-model="data.destination_address_postal_code">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>destination_address_neighborhood</label>
+          <input ng-model="data.destination_address_neighborhood">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>destination_time_range</label>
+          <input ng-model="data.destination_time_range">
+        </md-input-container>
+
+        <fieldset>
+          <button class="submit" ng-click="submit()">Enviar</button>
+        </fieldset>
+      </div>
+
+      <div ng-show="sending">Redirigiendo a Mercado Pago ...</div>
+
+      <br><br>
+
+      <div>
+        <h4>Respuesta</h4>
+        <!-- wapi guarda la respuesta del servidor en una variable 'response' del scope -->
+        <div>
+          {{response}}
+        </div>
+      </div>
+
+    </form>
+  </section>
+
+  <section>
+    <h2>Datos de MercadoPago de prueba</h2>
+    <div>
+      Recibe  {"id":229014867,"nickname":"TETE5851373","password":"qatest8625","site_status":"active","email":"test_user_8835921@testuser.com"}
+      <br>
+      Paga {"id":229015191,"nickname":"TETE5173804","password":"qatest5498","site_status":"active","email":"test_user_51627872@testuser.com"}
+      <br>
+      Tarjeta Visa: 4509 9535 6623 3704
+    </div>
+  </section>
+
+  <section>
+    <h2>Formulario de contacto</h2>
+
+    <form w-form="contact" ng-submit="submit()">
+      <fieldset>
+        <label>Name</label>
+        <input ng-model="data.name">
+      </fieldset>
+
+      <fieldset>
+        <label>Email</label>
+        <input ng-model="data.email">
+      </fieldset>
+
+      <div ng-show="sending">
+        Enviando
+      </div>
+
+      <fieldset>
+        <button class="submit">Enviar</button>
+      </fieldset>
+
+      <div ng-show="submitted"> Great </div>
+      <div ng-show="fail"> :( </div>
+    </form>
+  </section>
+
+  <section>
+    <h2>Material Design Demo</h2>
+    <form>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>First name</label>
+        <input ng-model="user.firstName">
+      </md-input-container>
+    </form>
+  </section>
+
+
+  <!--  -->
+  <!--  -->
+  <!-- Scripts -->
+  <!-- Todos estos son necesarios para que funcione wapi y angular-material -->
+  <!--  -->
+
+
+  <!-- Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+
+  <!-- WAPI. Usar uno de los dos. -->
+  <!-- WAPI Para local -->
+  <script src="http://localhost:9888/senders/browser/ng-wapi.js" ></script>
+  <!-- WAPI para prod -->
+  <script src="https://waaws-api.herokuapp.com/senders/browser/ng-wapi.js"></script>
+
+  <!-- Angular Material Dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+  <!-- Arrancando Todo  -->
+  <script type="text/javascript">
+    angular.module('sendersApp', ['ngMaterial','ngWapi']);
+  </script>
+
+</body>
+</html>

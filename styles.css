@@ -1,0 +1,44 @@
+body{
+  font-family: 'Helvetica';
+  font-size: 14px;
+}
+input{
+  padding: 10px;
+  font-size: 16px;
+}
+.submit{
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 10px 30px;
+}
+.data{
+  background-color: #FFEEFF;
+  padding: 5px;
+  line-height: 1.8;
+}
+label{
+  display: block;
+  padding: 10px 0;
+  font-weight: 300;
+}
+fieldset{
+  padding: 0;
+  border: 0;
+}
+h1,h2,h3,h4,h5,h6{
+  margin: 0;
+}
+
+h1 + *,
+h2 + *,
+h3 + *,
+h4 + *,
+h5 + *,
+h6 + *{
+  margin-top: 20px;
+}
+section{
+  padding: 20px;
+  border: solid 3px #DCF;
+  margin: 20px;
+}
