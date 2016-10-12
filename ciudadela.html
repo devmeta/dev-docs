@@ -8,6 +8,9 @@
   <!-- Estilos de la documentación no son necesarios -->
   <link rel="stylesheet" href="styles.css">
 
+  <!-- Para que anden los carouseles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css">
+
   <!-- Esto es necesario para que no se vean las cosas hasta que este todo cargado -->
   <style>
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -15,10 +18,16 @@
     }
   </style>
 
+  <style>
+    .preview{
+      width: 300px;
+    }
+  </style>
+
   <title>Ciudadela</title>
 </head>
 
-<body ng-app="ngWapi" ng-cloak="wapi">
+<body ng-app="ciudadelaApp" ng-cloak="wapi">
   <section>
     <h2>La papa está en el código fuente ;)</h2>
   </section>
@@ -50,15 +59,19 @@
       </div>
 
       <div class="grid">
-        <div ng-repeat="product in data.results" class="framed" ng-click="selected.product=product;selected.variedad=false">
+        <article ng-repeat="product in data.results" class="framed preview">
           <h2>Articulo <span ng-bind="product.Articulo"></span></h2>
-          <ul class="carrousel">
-            <img ng-src={{product.Variedad[0].Miniaturas[0].url}} class="thumbnail" alt="">
-            <li ng-repeat="variedad in product.Variedad">
-              <img ng-src={{variedad.Miniaturas[0].url}} alt="" class="thumbnail-small">
-            </li>
-          </ul>
-        </div>
+          <div class="carrousel">
+            <img ng-src={{product.Variedad[0].Miniaturas[0].url}} class="thumbnail" alt="" ng-click="selected.product=product;selected.variedad=false">
+
+            <div slick="true" infinite=true slides-to-show=3 slides-to-scroll=3 >
+              <div ng-repeat="variedad in product.Variedad">
+                <img ng-src={{variedad.Miniaturas[0].url}} alt="" class="thumbnail-small">
+              </div>
+            </div>
+
+          </div>
+        </article>
       </div>
 
     </section>
@@ -139,9 +152,19 @@
   <!-- Todos estos son necesarios para que funcione wapi-->
   <!--  -->
 
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
   <!-- Angular -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+
+  <!-- Slick - carousel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-slick-carousel/3.1.7/angular-slick.min.js" charset="utf-8"></script>
+
+
+
+
 
   <!-- WAPI. Usar uno de los dos. -->
 
@@ -149,6 +172,10 @@
   <script src="http://localhost:9888/ciudadela/browser/ng-wapi.js" ></script>
   <!-- WAPI para prod (webflow) -->
   <script src="https://waaws-api.herokuapp.com/ciudadela/browser/ng-wapi.js"></script>
+
+  <script>
+    angular.module('ciudadelaApp',['ngWapi','slickCarousel']);
+  </script>
 
 
 </body>
