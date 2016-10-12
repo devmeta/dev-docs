@@ -24,11 +24,12 @@
   </section>
 
   <section>
-    <h2>Linea de productos</h2>
+    <h2>Linea de productos: Tom</h2>
     <h3>
-      Atributos utilizados: w-form, ng-submit, ng-model, ng-show
+      Atributos utilizados: w-get, ng-init, ng-show, ng-click, ng-src, ng-repeat
     </h3>
-    <section w-get="'/products/Tom'" dev="true" ng-init="selected.product=false">
+    
+    <section w-get="'/products/Tom'" ng-init="selected.product=false">
 
       <div ng-show="selected.product">
         <button ng-click="selected.product=false">Cerrar</button>
@@ -147,7 +148,7 @@
   <!-- WAPI Para local -->
   <script src="http://localhost:9888/ciudadela/browser/ng-wapi.js" ></script>
   <!-- WAPI para prod (webflow) -->
-  <script src="https://api.waaws.space/ciudadela/browser/ng-wapi.js"></script>
+  <script src="https://waaws-api.herokuapp.com/ciudadela/browser/ng-wapi.js"></script>
 
 
 </body>
