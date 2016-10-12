@@ -28,10 +28,10 @@
     <h3>
       Atributos utilizados: w-get, ng-init, ng-show, ng-click, ng-src, ng-repeat
     </h3>
-    
+
     <section w-get="'/products/Tom'" ng-init="selected.product=false">
 
-      <div ng-show="selected.product">
+      <div ng-show="selected.product" class="framed">
         <button ng-click="selected.product=false">Cerrar</button>
         <h4>
           Producto {{selected.product.Articulo}}
