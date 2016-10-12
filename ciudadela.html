@@ -74,7 +74,7 @@
         </div>
 
         <div>
-          <img ng-src={{(selected.variedad||selected.product.Variedad[0]).Miniaturas[0].url}} class="thumbnail" alt="">
+          <img ng-src={{(selected.variedad||selected.product.Variedad[0])['Foto Original'][0].url}} class="thumbnail" alt="">
 
           <li ng-repeat="variedad in selected.product.Variedad" ng-click="selected.variedad=variedad">
             <img ng-src={{variedad.Miniaturas[0].url}} alt="" class="thumbnail-small">
