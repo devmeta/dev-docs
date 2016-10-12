@@ -15,14 +15,52 @@
     }
   </style>
 
-  <!-- CSS de angultar-material -->
-
   <title>Ciudadela</title>
 </head>
 
 <body ng-app="ngWapi" ng-cloak="wapi">
   <section>
     <h2>La papa está en el código fuente ;)</h2>
+  </section>
+
+  <section>
+    <h2>Linea de productos</h2>
+    <h3>
+      Atributos utilizados: w-form, ng-submit, ng-model, ng-show
+    </h3>
+    <section w-get="'/products/Tom'" dev="true" ng-init="selected.product=false">
+
+      <div ng-show="selected.product">
+        <button ng-click="selected.product=false">Cerrar</button>
+        <h4>
+          Producto {{selected.product.Articulo}}
+        </h4>
+        <div>
+          {{selected.pictureURL}}
+        </div>
+
+        <div>
+          <img ng-src={{(selected.variedad||selected.product.Variedad[0]).Miniaturas[0].url}} class="thumbnail" alt="">
+
+          <li ng-repeat="variedad in selected.product.Variedad" ng-click="selected.variedad=variedad">
+            <img ng-src={{variedad.Miniaturas[0].url}} alt="" class="thumbnail-small">
+          </li>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div ng-repeat="product in data.results" class="framed" ng-click="selected.product=product;selected.variedad=false">
+          <h2>Articulo <span ng-bind="product.Articulo"></span></h2>
+          <ul class="carrousel">
+            <img ng-src={{product.Variedad[0].Miniaturas[0].url}} class="thumbnail" alt="">
+            <li ng-repeat="variedad in product.Variedad">
+              <img ng-src={{variedad.Miniaturas[0].url}} alt="" class="thumbnail-small">
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
   </section>
 
   <section>

@@ -16,6 +16,28 @@ input{
   padding: 5px;
   line-height: 1.8;
 }
+.grid{
+  display: flex;
+  flex-wrap: wrap;
+}
+.thumbnail{
+  width: 100px;
+  height: 100px;
+}
+.thumbnail-small{
+  width: 30px;
+  height: 30px;
+}
+.framed{
+  border: solid 3px green;
+  margin: 10px;
+}
+.hide{
+  display: none;
+}
+.show{
+  display: inherit;
+}
 label{
   display: block;
   padding: 10px 0;
