@@ -83,13 +83,13 @@
       </div>
 
       <div class="grid">
-        <article ng-repeat="product in data.results" class="framed preview">
+        <article ng-repeat="product in data.results" class="framed preview" ng-init="thumbSelected.variedad=false">
           <h2>Articulo <span ng-bind="product.Articulo"></span></h2>
           <div class="carrousel">
-            <img ng-src={{product.Variedad[0].Miniaturas[0].url}} class="thumbnail" alt="" ng-click="selected.product=product;selected.variedad=false">
+            <img ng-src={{(thumbSelected.variedad||product.Variedad[0]).Miniaturas[0].url}} class="thumbnail" alt="" ng-click="selected.product=product;selected.variedad=false">
 
             <div slick="true" infinite=true slides-to-show=3 slides-to-scroll=3 >
-              <div ng-repeat="variedad in product.Variedad">
+              <div ng-repeat="variedad in product.Variedad" ng-click="thumbSelected.variedad=variedad">
                 <img ng-src={{variedad.Miniaturas[0].url}} alt="" class="thumbnail-small">
               </div>
             </div>
