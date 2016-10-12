@@ -36,13 +36,19 @@
     <h2>Importante</h2>
     <p>
       Para el carousel estoy usando slick para angular asi que hay que agregar
-      algunos scripts y la hoja de estilos de slick.
+      algunos scripts (jquery, slick,y slick-angular están al final del código)
+      y la hoja de estilos de slick (al comienzo del codigo, en el head).
       <br><br>
-      Acá esta la documentación:
+      Acá esta la documentación de angular-slick:
       <br><br>
       <a href="https://github.com/devmark/angular-slick-carousel">https://github.com/devmark/angular-slick-carousel</a>
       <br><br>
-      Ademas hay que modificar el ngApp en el body y declarar el modulo de angular tal como se ve al final de este código.
+      En vez de usar la etiqueta slick
+      para ser mas amigable con webflow usar el atributo slick="true" (es lo mismo)
+      como se usa en los código de ejemplo de esta documentación.
+      <br><br>
+      <em>Ademas hay que modificar el ngApp en el body y declarar el modulo de angular tal como se ve al final de este código.</em>
+
 
     </p>
   </section>
@@ -187,6 +193,9 @@
   <script src="http://localhost:9888/ciudadela/browser/ng-wapi.js" ></script>
   <!-- WAPI para prod (webflow) -->
   <script src="https://waaws-api.herokuapp.com/ciudadela/browser/ng-wapi.js"></script>
+
+
+
 
   <!-- Esto va de la mano con el ngApp del body -->
   <script>
