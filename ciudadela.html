@@ -33,6 +33,21 @@
   </section>
 
   <section>
+    <h2>Importante</h2>
+    <p>
+      Para el carousel estoy usando slick para angular asi que hay que agregar
+      algunos scripts y la hoja de estilos de slick.
+      <br><br>
+      Acá esta la documentación:
+      <br><br>
+      <a href="https://github.com/devmark/angular-slick-carousel">https://github.com/devmark/angular-slick-carousel</a>
+      <br><br>
+      Ademas hay que modificar el ngApp en el body y declarar el modulo de angular tal como se ve al final de este código.
+
+    </p>
+  </section>
+
+  <section>
     <h2>Linea de productos: Tom</h2>
     <h3>
       Atributos utilizados: w-get, ng-init, ng-show, ng-click, ng-src, ng-repeat
@@ -173,6 +188,7 @@
   <!-- WAPI para prod (webflow) -->
   <script src="https://waaws-api.herokuapp.com/ciudadela/browser/ng-wapi.js"></script>
 
+  <!-- Esto va de la mano con el ngApp del body -->
   <script>
     angular.module('ciudadelaApp',['ngWapi','slickCarousel']);
   </script>
