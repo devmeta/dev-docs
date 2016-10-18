@@ -22,12 +22,47 @@
     .preview{
       width: 300px;
     }
+    #map{
+      width: 500px;
+      height: 500px;
+    }
   </style>
+
+
+
+  <!--  -->
+  <!--  -->
+  <!-- Scripts -->
+  <!-- Todos estos son necesarios-->
+  <!--  -->
+
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+
+
+  <!-- Slick - carousel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-slick-carousel/3.1.7/angular-slick.min.js" charset="utf-8"></script>
+
+
+
 
   <title>Ciudadela</title>
 </head>
 
 <body ng-app="ciudadelaApp" ng-cloak="wapi">
+
+  <section>
+    <h2>Mapa revendedores</h2>
+    <h3>
+      //
+    </h3>
+    <div id="map"></div>
+  </section>
+
   <section>
     <h2>La papa está en el código fuente ;)</h2>
   </section>
@@ -172,25 +207,6 @@
   </section>
 
 
-  <!--  -->
-  <!--  -->
-  <!-- Scripts -->
-  <!-- Todos estos son necesarios para que funcione wapi-->
-  <!--  -->
-
-  <!-- jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-  <!-- Angular -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
-
-  <!-- Slick - carousel -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js" charset="utf-8"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-slick-carousel/3.1.7/angular-slick.min.js" charset="utf-8"></script>
-
-
-
-
 
   <!-- WAPI. Usar uno de los dos. -->
 
@@ -200,7 +216,46 @@
   <script src="https://waaws-api.herokuapp.com/ciudadela/browser/ng-wapi.js"></script>
 
 
+  <!-- Para el mapa -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwB-zDmCWPD3Tq8WIatIz1qiw52rYjoVY" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.min.js" charset="utf-8"></script>
+  <script>
+    var map = new GMaps({
+      div: '#map',
+      width:'500px',
+      height:'500px',
+    });
 
+
+
+    wapiClient.getResource({
+			resourcePath:'/resellers'
+		}).then(function(response){
+      var markers = response.results.map(function(reseller){
+        if(reseller.lat && reseller.long){
+          return({
+            lat: reseller.lat,
+            lng: reseller.long,
+            title: reseller.denomination,
+            infoWindow: {
+              content: '<p>'+reseller.address+'</p>' + '<p>'+reseller.locality+'</p>'
+            }
+          });
+        }
+      }).filter(function(a){ return a; });
+
+      map.addMarkers(markers);
+      map.fitZoom();
+
+      GMaps.geolocate({
+        success: function(position) {
+          map.setCenter(position.coords.latitude, position.coords.longitude);
+          map.setZoom(10);
+        }
+      });
+		});
+  </script>
+  <!-- Hasta acá lo del mapa -->
 
   <!-- Esto va de la mano con el ngApp del body -->
   <script>
