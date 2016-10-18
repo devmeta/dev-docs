@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Probando rivet</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rivets/0.9.4/rivets.bundled.min.js" charset="utf-8"></script>
+</head>
+<body>
+  <section class="auction">
+    <h3>{ auction.name }</h3>
+
+    <aside rv-if="auction.timeLeft | lt 120">
+      Hurry up! There is { auction.timeLeft | time } left.
+    </aside>
+  </section>
+
+  <section class="auction">
+    <h3>{ auction.name }</h3>
+    <p>Current bid: { auction.currentBid | money }</p>
+
+    <aside rv-if="auction.timeLeft | lt 120">
+      Hurry up! There is { auction.timeLeft | time } left.
+    </aside>
+  </section>
+
+  <script>
+    document.querySelectorAll('.auction').forEach(function(el){
+      var auction = {
+        name:'test',
+        timeLeft:200
+      }
+      setInterval(function(){
+        auction.name = Math.random();
+      },2000);
+      var b = rivets.bind(el, {auction: auction})
+    })
+
+  </script>
+
+</body>
+</html>
