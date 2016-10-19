@@ -245,7 +245,8 @@
       }).filter(function(a){ return a; });
 
       map.addMarkers(markers);
-      map.fitZoom();
+      map.setCenter(-39.7116036,-71.5723288);
+      map.setZoom(5)
 
       GMaps.geolocate({
         success: function(position) {
