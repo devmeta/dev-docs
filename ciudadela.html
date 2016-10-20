@@ -224,9 +224,10 @@
       div: '#map',
       width:'500px',
       height:'500px',
+      lat:-40.45131627590526,
+      lng:-64.71686004999998
     });
-
-
+    map.setZoom(4)
 
     wapiClient.getResource({
 			resourcePath:'/resellers'
@@ -245,15 +246,13 @@
       }).filter(function(a){ return a; });
 
       map.addMarkers(markers);
-      map.setCenter(-39.7116036,-71.5723288);
-      map.setZoom(5)
 
-      GMaps.geolocate({
-        success: function(position) {
-          map.setCenter(position.coords.latitude, position.coords.longitude);
-          map.setZoom(10);
-        }
-      });
+      // GMaps.geolocate({
+      //   success: function(position) {
+      //     map.setCenter(position.coords.latitude, position.coords.longitude);
+      //     map.setZoom(10);
+      //   }
+      // });
 		});
   </script>
   <!-- Hasta acá lo del mapa -->
