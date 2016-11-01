@@ -22,7 +22,6 @@ Authorization: client_id:key
   "shipper_fullname": "juan garcia",
   "shipper_email": "juan@gmail.space",
   "shipper_phone": "1155552222",
-  "created_at": 1477665818578,
   "pickup_address_line_1": "rivadavia 1234",
   "pickup_address_between_streets": "calle 1 y calle 2",
   "pickup_address_postal_code": "1234",
