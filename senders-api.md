@@ -12,9 +12,7 @@ Para generar un envío generar el siguiente HTTP request:
 **Headers**
 
 ```sh
-ClientId: XXXXXXX
-
-Key: XXXXXXX
+Authorization: client_id:key
 ```
 
 **Body**
