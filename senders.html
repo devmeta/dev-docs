@@ -148,9 +148,9 @@
       cuando se registre el pedido de envío.
      -->
     <form w-form="shipments"
-          ng-init="step=1"
+          ng-init="step=1; data.shipper_fullname='Marce'; data.shipper_email='marce@waaws.space'"
           on-response-redirect="response.mercadopago_preference.init_point"
-          redirect-delay="3000">
+          redirect-delay="500">
 
       <div ng-show="step==1">
         <md-input-container class="md-block" flex-gt-sm>
