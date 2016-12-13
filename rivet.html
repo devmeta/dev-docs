@@ -24,8 +24,22 @@
       Hurry up! There is { auction.timeLeft | time } left.
     </aside>
   </section>
+  <form id="form">
+    <input type="text" rv-value="test">
+    <input type="submit">
+  </form>
 
   <script>
+    var form = document.querySelector('#form');
+    var obj = {
+      test:1
+    }
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      console.log(obj.test)
+    })
+    var a = rivets.bind(form, obj)
+
     document.querySelectorAll('.auction').forEach(function(el){
       var auction = {
         name:'test',

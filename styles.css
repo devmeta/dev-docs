@@ -64,3 +64,10 @@ section{
   border: solid 3px #DCF;
   margin: 20px;
 }
+
+
+.wapi-form-done,
+.wapi-form-fail
+{
+  display: none;
+}

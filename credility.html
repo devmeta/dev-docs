@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rivets/0.9.4/rivets.bundled.min.js" charset="utf-8"></script>
+  <title>Credility</title>
+</head>
+<body>
+  <section>
+    <h2>Enviar mail para generar o regenerar password</h2>
+    <div class="wapi-form-wrapper" data-form-name="send-password-email">
+        <form class="wapi-form">
+          <fieldset>
+            <label>Email</label>
+            <input type="text" name="email" placeholder="test@test.com">
+          </fieldset>
+          <div>
+            <button class="submit">Enviar mail</button>
+          </div>
+        </form>
+
+        <div class="wapi-form-done"> Great </div>
+        <div class="wapi-form-fail"> :( </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Crear o regenerar una contraseña a partir de un email</h2>
+    <form>
+      <input type="text" name="email">
+      <input type="text" name="password">
+      <input type="text" name="repeat-password">
+      <button>Enviar</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Login</h2>
+    <form>
+      <input type="text" name="email">
+      <input type="text" name="password">
+      <input type="text" name="repeat-password">
+      <button>Enviar</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Linea de credito</h2>
+    <form>
+
+      <button>Enviar</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Solicitar crédito</h2>
+    <form>
+      <h3>Form uno</h3>
+    </form>
+    <form>
+      <h3>Form dos</h3>
+    </form>
+  </section>
+
+  <section>
+    <h2>Creditos actuales</h2>
+  </section>
+
+  <section>
+    <h2>Calendario de repago</h2>
+  </section>
+
+  <section>
+    <h2>Historico de creditos</h2>
+    <div>
+      Mostrar lista de créditos
+    </div>
+  </section>
+
+  <section>
+    <h2>Notificaciones</h2>
+    <div>
+      Mostrar lista de notificaciones
+    </div>
+  </section>
+
+  <section>
+    <h2>Documentos</h2>
+    <div>
+      formulario que envia archivos a airtable
+    </div>
+  </section>
+
+  <section>
+    <h2>Mercado libre</h2>
+    <div>
+      API de Meli, guarda en airtable historial de ventas y reputación
+    </div>
+  </section>
+
+  <!-- WAPI. Usar uno de los dos. -->
+
+  <!-- WAPI Para local no subir este cacho a producción -->
+  <script src="http://localhost:9888/credility/browser/ng-wapi.js" ></script>
+  <!-- WAPI para prod -->
+  <script src="https://waaws-api.herokuapp.com/credility/browser/ng-wapi.js"></script>
+
+  <script>
+    wapi.autoInitForms();
+  </script>
+</body>
+</html>
