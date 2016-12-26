@@ -9,6 +9,42 @@
   <title>Credility</title>
 </head>
 <body ng-app="ngWapi" ng-cloak="waaws">
+
+  <section>
+    <h2>Login</h2>
+    <p>Probar con marce@waaws.space / admin1234 </p>
+    <form w-form="auth" ng-submit="submit()" login-form="true">
+
+      <fieldset>
+        <label>Email</label>
+        <input type="text" ng-model="data.email" />
+      </fieldset>
+
+      <fieldset>
+        <label>Password</label>
+        <input type="password" ng-model="data.password" />
+      </fieldset>
+
+      <fieldset>
+        <button>Enviar</button>
+      </fieldset>
+
+      <div ng-show="sending">
+        Enviando
+      </div>
+      <div ng-show="submitted">
+        Great
+      </div>
+      <div ng-show="fail">
+        :(
+      </div>
+      <!-- Also, we have the server response in a 'response' object -->
+      <div>
+        {{response}}
+      </div>
+    </form>
+  </section>
+
   <section>
     <h2>Perfil</h2>
     <h4>Los datos estan disponibles dentro del contexto del w-get</h4>
@@ -212,40 +248,6 @@
       <fieldset>
         <button>Enviar</button>
       </fieldset>
-      <div ng-show="sending">
-        Enviando
-      </div>
-      <div ng-show="submitted">
-        Great
-      </div>
-      <div ng-show="fail">
-        :(
-      </div>
-      <!-- Also, we have the server response in a 'response' object -->
-      <div>
-        {{response}}
-      </div>
-    </form>
-  </section>
-
-  <section>
-    <h2>Login</h2>
-    <form w-form="auth" ng-submit="submit()" login-form="true">
-
-      <fieldset>
-        <label>Email</label>
-        <input type="text" ng-model="data.email" />
-      </fieldset>
-
-      <fieldset>
-        <label>Password</label>
-        <input type="password" ng-model="data.password" />
-      </fieldset>
-
-      <fieldset>
-        <button>Enviar</button>
-      </fieldset>
-
       <div ng-show="sending">
         Enviando
       </div>
