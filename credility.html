@@ -8,108 +8,278 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/rivets/0.9.4/rivets.bundled.min.js" charset="utf-8"></script>
   <title>Credility</title>
 </head>
-<body>
+<body ng-app="ngWapi" ng-cloak="waaws">
   <section>
-    <h2>Enviar mail para generar o regenerar password</h2>
-    <div class="wapi-form-wrapper" data-form-name="send-password-email">
-        <form class="wapi-form">
-          <fieldset>
-            <label>Email</label>
-            <input type="text" name="email" placeholder="test@test.com">
-          </fieldset>
+    <h2>Perfil</h2>
+    <h4>Los datos estan disponibles dentro del contexto del w-get</h4>
+
+    <section w-get="'/notificaciones'">
+      <h3>Notificaciones</h3>
+      <div ng-repeat="notificacion in data">
+        {{notificacion.Notes}}
+      </div>
+    </section>
+
+    <div w-get="'/me'">
+
+      <section>
+        <h2>Creditos Activos</h2>
+        <div ng-repeat="activo in data.Creditos | filter:{ Estado:'Activo' }">
+          {{activo.Monto}}
+        </div>
+      </section>
+
+      <section>
+        <h2>Creditos Historial</h2>
+        <div ng-repeat="activo in data.Creditos | filter:{ Estado:'Finalizado' }">
+          {{activo.Monto}}
+        </div>
+      </section>
+
+      <section>
+        <h3>Linea</h3>
+
+        <div ng-repeat="credito in data.creditosByType">
+          Nombre: {{credito.name}}
+          <div style="width:300px; border:solid 2px black">
+            <div style="background-color:red; width:{{credito.monto*100/credito.linea}}%; height:30px;">&nbsp;</div>
+          </div>
+          Monto: {{credito.monto}}
+          Linea: {{credito.linea}}
+        </div>
+      </section>
+
+      <section>
+        <form w-form="responsable" ng-submit="submit(data.Responsable[0])">
+
+          <h2>Responsable</h2>
           <div>
-            <button class="submit">Enviar mail</button>
+            <h4>Nombre:</h4>
+            <input type="text" ng-model="data.Responsable[0]['Nombre']" />
+          </div>
+          <br>
+          <div>
+            <h3>Responsable entero</h3>
+            <div>
+              {{data.Responsable[0]}}
+            </div>
+          </div>
+          <br>
+          <div>
+            <button>Enviar</button>
+          </div>
+        </form>
+      </section>
+
+      <section>
+        <form w-form="/directores" replace-entire-scope="true" json="true" ng-submit="submit(data.Directores)">
+          <div ng-repeat="director in data.Directores">
+              <h2>Director</h2>
+
+              <div>
+                <h4>Nombre:</h4>
+                <input type="text" ng-model="director['Nombre Completo']" />
+              </div>
+
+              <div>
+                <h4>Documento:</h4>
+                <input type="text" ng-model="director['Documento']" />
+              </div>
+
+              <div>
+                <h4>JSON</h4>
+                {{director}}
+              </div>
+          </div>
+
+          <div>
+            <button type="button" ng-click="data.Directores.push({})">Nuevo Director</button>
+          </div>
+          <div>
+            <button>Enviar</button>
+          </div>
+        </form>
+      </section>
+
+      <section>
+        <h3>Proximo vencimiento</h3>
+        <div>
+          <div>
+            <h4>{{data.nextPayment.Fecha}}</h4>
+            <h4>{{data.nextPayment.Linea.Calificacion}}</h4>
+            <h4>{{data.nextPayment.Monto}}</h4>
+          </div>
+          <div>
+            {{data.nextPayment}}
+          </div>
+        </div>
+      </section>
+
+      <section>
+
+        <form w-form="me" ng-submit="submit()">
+          <h2>Datos Empresa</h2>
+          <div>
+            <h4>Razón Social:</h4>
+            <input type="text" ng-model="data['Razón Social']" />
+          </div>
+          <br>
+          <div>
+            <button>Enviar</button>
           </div>
         </form>
 
-        <div class="wapi-form-done"> Great </div>
-        <div class="wapi-form-fail"> :( </div>
+        <br> <br>
+        <div>
+          <h4>Data</h4>
+          <div> {{data}} </div>
+        </div>
+
+      </section>
+
+      <form w-form="files" ng-submit="submit()">
+        <section>
+          <h3>Ultimos estados contable</h3>
+          <div>
+            <img ng-src={{data.Uploads[0].Attachments[0].url}} width="300" alt="">
+          </div>
+          <button file name="last-state">Pic</button>
+        </section>
+
+        <section>
+          <h3>Poderes</h3>
+          <button file name="poderes">Pic</button>
+        </section>
+
+        <section>
+          <h3>Acta directorio</h3>
+          <button file name="acta-directorio-vigente">Pic</button>
+        </section>
+
+        <div>
+          <button>Enviar</button>
+        </div>
+
+        <div ng-show="sending"> Enviando </div>
+        <div ng-show="submitted"> Great </div>
+        <div ng-show="fail"> :( </div>
+
+        <!-- Also, we have the server response in a 'response' object -->
+        <div>
+          {{response}}
+        </div>
+      </form>
     </div>
+
+
+  </section>
+
+  <section>
+    <h2>Enviar mail para generar o regenerar password</h2>
+    <form w-form="send-password-email" ng-submit="submit()">
+      <fieldset>
+        <input type="email" ng-model="data.email" value="test@test.com" />
+        <button>Enviar</button>
+      </fieldset>
+      <div ng-show="sending">
+        Enviando
+      </div>
+      <div ng-show="submitted">
+        Great
+      </div>
+      <div ng-show="fail">
+        :(
+      </div>
+      <!-- Also, we have the server response in a 'response' object -->
+      <div>
+        {{response}}
+      </div>
+    </form>
   </section>
 
   <section>
     <h2>Crear o regenerar una contraseña a partir de un email</h2>
-    <form>
-      <input type="text" name="email">
-      <input type="text" name="password">
-      <input type="text" name="repeat-password">
-      <button>Enviar</button>
+    <p>Para probar entrar a localhost:8080/credility.html?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmNlQHdhYXdzLnNwYWNlIiwiaWQiOiJyZWNoRjZVdWswQzQyamZWcCIsImlhdCI6MTQ4MjI3MzczNH0.NMvld7Sj1cmBI1Ke22woG1nx1ICnl-O34oed-jf_GsQ&email=marce@waaws.space</p>
+    <form w-form="new-password" ng-submit="submit()" ng-init="data.token=wLocation.query.token; data.email=wLocation.query.email">
+      <label>token from url</label>
+      <input type="text" ng-model="data.token">
+      <label>email from url</label>
+      <input type="text" ng-model="data.email">
+      <fieldset>
+        <label>Password</label>
+        <input type="password" ng-model="data.password" />
+      </fieldset>
+      <fieldset>
+        <button>Enviar</button>
+      </fieldset>
+      <div ng-show="sending">
+        Enviando
+      </div>
+      <div ng-show="submitted">
+        Great
+      </div>
+      <div ng-show="fail">
+        :(
+      </div>
+      <!-- Also, we have the server response in a 'response' object -->
+      <div>
+        {{response}}
+      </div>
     </form>
   </section>
 
   <section>
     <h2>Login</h2>
-    <form>
-      <input type="text" name="email">
-      <input type="text" name="password">
-      <input type="text" name="repeat-password">
-      <button>Enviar</button>
+    <form w-form="auth" ng-submit="submit()" login-form="true">
+
+      <fieldset>
+        <label>Email</label>
+        <input type="text" ng-model="data.email" />
+      </fieldset>
+
+      <fieldset>
+        <label>Password</label>
+        <input type="password" ng-model="data.password" />
+      </fieldset>
+
+      <fieldset>
+        <button>Enviar</button>
+      </fieldset>
+
+      <div ng-show="sending">
+        Enviando
+      </div>
+      <div ng-show="submitted">
+        Great
+      </div>
+      <div ng-show="fail">
+        :(
+      </div>
+      <!-- Also, we have the server response in a 'response' object -->
+      <div>
+        {{response}}
+      </div>
     </form>
   </section>
 
   <section>
-    <h2>Linea de credito</h2>
+    <h2>Redirect URL para Meli APP</h2>
+    <p>Modificar el redirect_uri de meli a https://waaws-api.herokuapp.com/credility/api/v1/meli-tokens/</p>
     <form>
-
-      <button>Enviar</button>
+      <h3>URLs</h3>
+      <p>http://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=6883898513739091&redirect_uri=https://waaws-api.herokuapp.com/credility/api/v1/meli-tokens/?token={{accessToken}}</p>
+      <a target="_blank" ng-href="{{'http://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=6883898513739091&redirect_uri=https://waaws-api.herokuapp.com/credility/api/v1/meli-tokens/?token=' + accessToken}}">Link</a>
     </form>
   </section>
 
-  <section>
-    <h2>Solicitar crédito</h2>
-    <form>
-      <h3>Form uno</h3>
-    </form>
-    <form>
-      <h3>Form dos</h3>
-    </form>
-  </section>
 
-  <section>
-    <h2>Creditos actuales</h2>
-  </section>
-
-  <section>
-    <h2>Calendario de repago</h2>
-  </section>
-
-  <section>
-    <h2>Historico de creditos</h2>
-    <div>
-      Mostrar lista de créditos
-    </div>
-  </section>
-
-  <section>
-    <h2>Notificaciones</h2>
-    <div>
-      Mostrar lista de notificaciones
-    </div>
-  </section>
-
-  <section>
-    <h2>Documentos</h2>
-    <div>
-      formulario que envia archivos a airtable
-    </div>
-  </section>
-
-  <section>
-    <h2>Mercado libre</h2>
-    <div>
-      API de Meli, guarda en airtable historial de ventas y reputación
-    </div>
-  </section>
+  <!-- Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 
   <!-- WAPI. Usar uno de los dos. -->
-
   <!-- WAPI Para local no subir este cacho a producción -->
   <script src="http://localhost:9888/credility/browser/ng-wapi.js" ></script>
   <!-- WAPI para prod -->
   <script src="https://waaws-api.herokuapp.com/credility/browser/ng-wapi.js"></script>
-
-  <script>
-    wapi.autoInitForms();
-  </script>
 </body>
 </html>
