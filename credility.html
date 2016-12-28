@@ -13,6 +13,7 @@
   <section>
     <h2>Login</h2>
     <p>Probar con marce@waaws.space / admin1234 </p>
+
     <form w-form="auth" ng-submit="submit()" login-form="true" on-response-redirect="'./credility.html'">
 
       <fieldset>
@@ -52,6 +53,7 @@
     </div>
   </section>
 
+
   <section>
     <h2>Perfil</h2>
     <h4>Los datos estan disponibles dentro del contexto del w-get</h4>
@@ -61,6 +63,10 @@
       <div ng-repeat="notificacion in data">
         {{notificacion.Notes}}
       </div>
+    </section>
+
+    <section w-get="'/score'">
+      <h3>My Score: {{data.score}}</h3>
     </section>
 
     <div w-get="'/me'">
@@ -74,19 +80,9 @@
       <section>
         <h2>Redes</h2>
         <div>
-          <script type="text/javascript" id="__fs-widget">
-            var __lc = {};
-            __lc.application = 1287;
-            __lc.borrowerIdentifier = undefined; // your borrower identifier ex. from database
-            __lc.lang = undefined;
-            __lc.buttonText = "Score yourself";
-
-            (function() {
-                var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-                lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.friendlyscore.com/widgets.js?app='+__lc.application;
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-            })();
-          </script>
+          <a target="_blank" href="https://friendlyscore.com/landing/process/1287/{{data._id}}">
+             Click to Score yourself
+          </a>
         </div>
       </section>
 
