@@ -77,6 +77,26 @@
           {{activo.Monto}}
         </div>
       </section>
+
+      <section>
+        <h2>Creditos en cuotas</h2>
+        <select ng-model="data.creditoEnCuotas" name="paymentsCredits">
+        	<option ng-repeat="activo in data.Creditos | filter:{ Estado:'Activo' }"
+        					ng-if="activo.Repagos.length > 1"
+        					ng-value="activo.Id">
+        		Crédito {{activo.Id}}
+        	</option>
+        </select>
+        {{}}
+        <div ng-repeat="credito in data.Creditos | filter:{ Id:data.creditoEnCuotas }" ng-if="data.creditoEnCuotas">
+        	<div ng-repeat="cuota in credito.Repagos | orderBy:'\u0022Cuota Numero\u0022'" >
+        		{{cuota['Cuota Numero']}}
+        		{{cuota.Monto}}
+        		{{cuota['Status Pago']}}
+        	</div>
+        </div>
+      </section>
+
       <section>
         <h2>Redes</h2>
         <div>
