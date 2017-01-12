@@ -14,8 +14,7 @@
     <h2>Login</h2>
     <p>Probar con marce@waaws.space / admin1234 </p>
 
-    <form w-form="auth" ng-submit="submit()" login-form="true" on-response-redirect="'./credility.html'">
-
+    <form w-form="auth" ng-submit="submit()" login-form="true" on-response-redirect="response.tipo == 'Monotributo' ? './panel-de-control-unipersonal-y-monotributo' : './panel-de-control'">
       <fieldset>
         <label>Email</label>
         <input type="text" ng-model="data.email" />
