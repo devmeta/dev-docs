@@ -1,6 +1,6 @@
 ### Documentación para usar Senders para Empresas: http://www.senders.com.ar/
 # Primero
-Solicitar acceso al API para empresas a info@senders.com.ar
+Solicitar acceso al API para empresas a contacto@senders.com.ar
 
 Vas a recibir un email con un **CLIENT_ID** y una **KEY**
 
